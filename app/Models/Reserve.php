@@ -13,6 +13,9 @@ class Reserve extends Model
 
     protected $fillable = ['room_id','title','name','start_time','stop_time','participant','permission_status'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function room()
     {
         return $this->belongsTo('App\Models\Room');

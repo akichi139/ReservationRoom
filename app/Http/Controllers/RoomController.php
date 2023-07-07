@@ -23,6 +23,7 @@ class RoomController extends Controller
         $events = Reserve::orderBy('start_time', 'asc')->where('permission_status', '!=', 2)->get();
         $json_event = [];
         //loop data orderby asc with start_time in Reserve
+        /** @var \App\Models\Reserve $event */
         foreach ($events as $event) {
             $participantIDArray = explode(',', $event->participant);
             $participantNameArray = [];
@@ -54,7 +55,7 @@ class RoomController extends Controller
         $room->color = $request->color;
         $room->max_participant = $request->max_participant;
         $room->image = $fileName;
-        $room->admin_permission = $request->admin_permission == 'on' ? 1 : 0;
+        $room->admin_permission = $request->admin_permission == 'on' ? true : false;
         $room->save();
 
         return redirect()->route('room.index')->with('success', 'Room has been created successfully.');
