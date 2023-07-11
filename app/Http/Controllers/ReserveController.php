@@ -100,6 +100,10 @@ class ReserveController extends Controller
             }
             // dd($temp);
             Reserve::insert($temp);
+
+            if($permission_status == 1 ){
+                return redirect()->route('mail', compact('reserve'));
+            }
             return redirect()->route('room.index')->with('success', 'Repeat reserve has been created successfully.');
         }
 
@@ -114,6 +118,9 @@ class ReserveController extends Controller
         $reserve->permission_status = $permission_status;
         $reserve->save();
 
+        if($permission_status == 1 ){
+            return redirect()->route('mail', compact('reserve'));
+        }
         return redirect()->route('room.index')->with('success', 'Reserve has been created successfully.');
     }
 
