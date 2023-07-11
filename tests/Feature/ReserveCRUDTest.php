@@ -80,7 +80,7 @@ class ReserveCRUDTest extends TestCase
             'participant' => '1,2,3,4',
             'permission_status' => 1
         ]);
-        $response->assertRedirect('/room');
+        $response->assertRedirect('/mail/*');
     }
 
     public function test_user_can_store_new_reserve_room_not_require_permission_with_repeat()
@@ -150,7 +150,7 @@ class ReserveCRUDTest extends TestCase
             'participant' => '1,2,3,4',
             'permission_status' => 1
         ]);
-        $response->assertRedirect('/room');
+        $response->assertRedirect('/mail/*');
     }
 
     public function test_user_cannot_store_reserve_because_participant_more_than_room_max_participant()
