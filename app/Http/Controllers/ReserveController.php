@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PermissionStatusChanged;
 use App\Http\Requests\ValidateReserve;
 use App\Models\Reserve;
 use App\Models\Room;
@@ -204,8 +205,11 @@ class ReserveController extends Controller
 
     public function changePermissionStatus(Request $request)
     {
-        Reserve::find($request->id)->update(['permission_status' => $request->status]);
-
+        $reserve = Reserve::find($request->id);
+        $reserve->update(['permission_status' => $request->status]);
+        if(($reserve->status == 0 || $reserve->status == 2) && $reserve->start_time > Carbon::now()->toDateTimeString()){
+            event(new PermissionStatusChanged($reserve));
+        }
         return redirect()->route('reserve.index')->with('success', 'Reserve has been update successfully.');
     }
 }

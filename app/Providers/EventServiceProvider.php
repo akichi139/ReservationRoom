@@ -7,6 +7,8 @@ use App\Listeners\SendPendingMail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Events\PermissionStatusChanged;
+use App\Listeners\SendPermissionStatusChangedEmail;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         PendingMail::class => [
             SendPendingMail::class,
+        ],
+
+        PermissionStatusChanged::class => [
+            SendPermissionStatusChangedEmail::class,
         ],
     ];
 

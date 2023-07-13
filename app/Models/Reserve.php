@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\PermissionStatusChanged;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,12 +19,12 @@ class Reserve extends Model
      */
     public function room()
     {
-        return $this->belongsTo('App\Models\Room');
+        return $this->belongsTo(Room::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     protected static function boot()

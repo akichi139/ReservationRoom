@@ -9,8 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Reserve;
-
-class ResponseMail extends Mailable
+class ChangeStatusResponseMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -44,7 +43,7 @@ class ResponseMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mail.pendingMail',
+            view: 'mail.changeStatusMail',
         );
     }
 

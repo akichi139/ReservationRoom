@@ -13,11 +13,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ $title }}</div>
+                    <div class="card-header">{{ $reserve->title }}</div>
                     <div class="card-body">
                         <h3>Hello</h3>
                         <h4>Your HRM-Workplace convention room reserve pending<br></h4>
-                        <pre>   Reserve Name: {{ $reserve_name }}<br>   Room Name: {{ $room_name }}<br>   Time period: {{ $start_time }} to {{ $stop_time }}<br>   This reservation is waiting for approval</pre>
+                        <pre>   Reserve Name: {{ $reserve->name }}<br>   Room Name: {{ $reserve->room->room_name }}<br>   Time period: {{ $reserve->start_time }} to {{ $reserve->stop_time }}<br>   This reservation is waiting for approval</pre>
                         <p>Thank you</p>
                     </div>
                 </div>

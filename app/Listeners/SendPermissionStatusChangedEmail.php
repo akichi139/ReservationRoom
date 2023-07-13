@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\PendingMail;
+use App\Events\PermissionStatusChanged;
+use App\Mail\ChangeStatusResponseMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Mail\ResponseMail;
 use Illuminate\Support\Facades\Mail;
 
-class SendPendingMail
+class SendPermissionStatusChangedEmail
 {
     /**
      * Create the event listener.
@@ -23,11 +23,11 @@ class SendPendingMail
     /**
      * Handle the event.
      *
-     * @param  \App\Events\PendingMail  $event
+     * @param  \App\Events\PermissionStatusChanged  $event
      * @return void
      */
-    public function handle(PendingMail $event)
+    public function handle(PermissionStatusChanged $event)
     {
-        Mail::to('admin@gmail.com')->send(new ResponseMail($event->reserve));
+        Mail::to($event->reserve->user->email)->send(new ChangeStatusResponseMail($event->reserve));
     }
 }
