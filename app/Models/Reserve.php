@@ -25,4 +25,15 @@ class Reserve extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($reserve) {
+            if ($reserve->permission_status == 1) {
+                event(new \App\Events\PendingMail($reserve));
+            }
+        });
+    }
 }

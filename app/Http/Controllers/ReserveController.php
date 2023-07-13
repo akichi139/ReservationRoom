@@ -8,9 +8,12 @@ use App\Models\Room;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Mail\PendingMail;
 use Spatie\Period\Boundaries;
 use Spatie\Period\Period;
 use Spatie\Period\Precision;
+use App\Mail\ResponseMail;
+use Illuminate\Support\Facades\Mail;
 
 class ReserveController extends Controller
 {
@@ -77,6 +80,15 @@ class ReserveController extends Controller
             $permission_status = 1;
         }
 
+        $reserve = new Reserve;
+        $reserve->title = $request->title;
+        $reserve->name = $request->name;
+        $reserve->room_id = $request->room_id;
+        $reserve->start_time = $start;
+        $reserve->stop_time = $stop;
+        $reserve->participant = $participant_str;
+        $reserve->permission_status = $permission_status;
+
         if ($request->toggle == 'on') {
             for ($i = $starttemp; $i <= $stoptemp; $i->addDays(7)) {
                 foreach ($checkperiod as $period) {
@@ -86,40 +98,30 @@ class ReserveController extends Controller
                         return redirect()->route('timeslots')->with('time_error', 'some repeat time has already been reserved. please try again.');
                     }
                 }
-                array_push($temp, [
-                    'title' => $request->title,
-                    'name' => $request->name,
-                    'room_id' => $request->room_id,
-                    'start_time' => $start->format('Y-m-d H:i:s'),
-                    'stop_time' => $stop->format('Y-m-d H:i:s'),
-                    'participant' => $participant_str,
-                    'permission_status' => $permission_status,
-                ]);
+                $reserve = new Reserve;
+                $reserve->title = $request->title;
+                $reserve->name = $request->name;
+                $reserve->room_id = $request->room_id;
+                $reserve->start_time = $start->format('Y-m-d H:i:s');
+                $reserve->stop_time = $stop->format('Y-m-d H:i:s');
+                $reserve->participant = $participant_str;
+                $reserve->permission_status = $permission_status;
+                $reserve->save();
+
                 $start->addDays(7);
                 $stop->addDays(7);
             }
-            // dd($temp);
-            Reserve::insert($temp);
-
-            if($permission_status == 1 ){
-                return redirect()->route('mail', compact('reserve'));
+            if ($permission_status == 1) {
+                return redirect()->route('room.index')->with('success', 'Pending mail has been sent successfully.');
             }
             return redirect()->route('room.index')->with('success', 'Repeat reserve has been created successfully.');
         }
 
         //create data
-        $reserve = new Reserve;
-        $reserve->title = $request->title;
-        $reserve->name = $request->name;
-        $reserve->room_id = $request->room_id;
-        $reserve->start_time = $start;
-        $reserve->stop_time = $stop;
-        $reserve->participant = $participant_str;
-        $reserve->permission_status = $permission_status;
         $reserve->save();
 
-        if($permission_status == 1 ){
-            return redirect()->route('mail', compact('reserve'));
+        if ($permission_status == 1) {
+            return redirect()->route('room.index')->with('success', 'Pending mail has been sent successfully.');
         }
         return redirect()->route('room.index')->with('success', 'Reserve has been created successfully.');
     }

@@ -28,18 +28,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reserve_update_status/{id}/{status}', [ReserveController::class, 'changePermissionStatus'])->name('updateReserveStatus');
 });
 
-Route::get('mail/{reserve}', function(Reserve $reserve) {
-    $title = $reserve->title;
-    $name = $reserve->name;
-    $start_time = $reserve->start_time;
-    $stop_time = $reserve->stop_time;
-    $room = (Room::find($reserve->room_id));
-    $room_name = $room->room_name;
-    $mail = new ResponseMail(['title' => $title, 'name' => $name, 'room_name' => $room_name, 'start_time' => $start_time, 'stop_time'=> $stop_time]);
-    Mail::to('test1@gmail.com')->send($mail);
-    return redirect()->route('room.index')->with('success', 'Pending mail has been sent successfully.');
-})->name('mail');
-
 Route::get('/', function () {
     return view('welcome');
 });
