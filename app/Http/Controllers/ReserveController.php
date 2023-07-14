@@ -210,8 +210,14 @@ class ReserveController extends Controller
     public function changePermissionStatus(Request $request)
     {
         $reserve = Reserve::find($request->id);
+        if($reserve->permission_status == $request->status){
+            return redirect()->route('reserve.index')->with('success', 'Status not change.');
+        }
+        if($reserve->room->admin_permission == 0 && $request->status == 1 && $reserve->start_time > Carbon::now()->toDateTimeString()){
+            return redirect()->route('reserve.index')->with('success', 'This room can not change status to pending.');
+        }
         $reserve->update(['permission_status' => $request->status]);
-        if(($reserve->status == 0 || $reserve->status == 2) && $reserve->start_time > Carbon::now()->toDateTimeString()){
+        if(($reserve->permission_status == 0 || $reserve->permission_status == 2) && $reserve->start_time > Carbon::now()->toDateTimeString()){
             event(new PermissionStatusChanged($reserve));
         }
         return redirect()->route('reserve.index')->with('success', 'Reserve has been update successfully.');
