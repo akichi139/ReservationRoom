@@ -62,6 +62,9 @@ jobs:
 
     - name: Check View Room
       run: ls -l $PWD/resources/views/room
+      
+    - name: Show DB
+      run: php artisan db:show
 
     - name: Execute Feature test via Pest
       run: php artisan test
