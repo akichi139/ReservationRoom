@@ -63,8 +63,5 @@ jobs:
     - name: Check View Room
       run: ls -l $PWD/resources/views/room
 
-    - name: Run Migrations
-      run: php artisan migrate --database=mysql --force
-
     - name: Execute Feature test via Pest
       run: php artisan test
