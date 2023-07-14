@@ -37,7 +37,7 @@ jobs:
       run: npm install
 
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install -q --no-ansi --no-interaction --no-scripts --prefer-dist
 
     - name: Generate key
       run: php artisan key:generate
