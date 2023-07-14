@@ -104,7 +104,7 @@ class ReserveController extends Controller
                 $reserve->title = $request->title;
                 $reserve->name = $request->name;
                 $reserve->room_id = $request->room_id;
-                $reserve->user_id = User::find($request->name)->id;
+                $reserve->user_id = $user->id;
                 $reserve->start_time = $start->format('Y-m-d H:i:s');
                 $reserve->stop_time = $stop->format('Y-m-d H:i:s');
                 $reserve->participant = $participant_str;
