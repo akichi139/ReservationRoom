@@ -142,6 +142,7 @@ class ReserveController extends Controller
         $stop_str = Carbon::parse("{$request->date} {$request->stop_time}")->format('Y-m-d H:i:s');
         $particapant = $request->input('participant');
         $room = Room::find($request->room_id);
+        $user = User::where('name', $request->name)->first();
         // dd($room->max_participant);
         if (count($particapant) > $room->max_participant) {
             return redirect()->route('timeslots')->with('time_error', 'Too many participant for a convention room. please choose another convention room.');
@@ -166,7 +167,7 @@ class ReserveController extends Controller
         $reserve->title = $request->title;
         $reserve->name = $request->name;
         $reserve->room_id = $request->room_id;
-        $reserve->user_id = User::find($request->name)->id;
+        $reserve->user_id = $user->id;
         $reserve->start_time = $start_str;
         $reserve->stop_time = $stop_str;
         $reserve->participant = $participant_str;
