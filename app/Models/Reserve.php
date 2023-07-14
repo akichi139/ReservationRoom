@@ -12,7 +12,7 @@ class Reserve extends Model
 
     protected $table = 'reserves';
 
-    protected $fillable = ['room_id','title','name','start_time','stop_time','participant','permission_status'];
+    protected $fillable = ['room_id','user_id','title','name','start_time','stop_time','participant','permission_status'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

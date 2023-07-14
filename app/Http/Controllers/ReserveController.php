@@ -54,7 +54,6 @@ class ReserveController extends Controller
     public function store(ValidateReserve $request)
     {
         // dd($request);
-        $temp = [];
         $starttemp = Carbon::parse("{$request->date} {$request->start_time}");
         $stoptemp = Carbon::parse("{$request->repeatTime} {$request->stop_time}");
         $start = Carbon::parse("{$request->date} {$request->start_time}");
@@ -85,6 +84,7 @@ class ReserveController extends Controller
         $reserve->title = $request->title;
         $reserve->name = $request->name;
         $reserve->room_id = $request->room_id;
+        $reserve->user_id = User::find($request->name)->id;
         $reserve->start_time = $start;
         $reserve->stop_time = $stop;
         $reserve->participant = $participant_str;
@@ -103,6 +103,7 @@ class ReserveController extends Controller
                 $reserve->title = $request->title;
                 $reserve->name = $request->name;
                 $reserve->room_id = $request->room_id;
+                $reserve->user_id = User::find($request->name)->id;
                 $reserve->start_time = $start->format('Y-m-d H:i:s');
                 $reserve->stop_time = $stop->format('Y-m-d H:i:s');
                 $reserve->participant = $participant_str;
@@ -164,6 +165,7 @@ class ReserveController extends Controller
         $reserve->title = $request->title;
         $reserve->name = $request->name;
         $reserve->room_id = $request->room_id;
+        $reserve->user_id = User::find($request->name)->id;
         $reserve->start_time = $start_str;
         $reserve->stop_time = $stop_str;
         $reserve->participant = $participant_str;

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('room_id');
             $table->foreign('room_id')->references('id')->on('rooms');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->string('name');
             $table->dateTime('start_time');

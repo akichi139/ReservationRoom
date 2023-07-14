@@ -29,6 +29,7 @@ class ReserveCRUDTest extends TestCase
         ]);
         $response = $this->actingAs($user)->post(route('reserve.store'), [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'date' => '2024-07-06',
@@ -40,6 +41,7 @@ class ReserveCRUDTest extends TestCase
         $this->assertCount(1, Reserve::all());
         $this->assertDatabaseHas('reserves', [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'start_time' => '2024-07-06 16:30:00',
@@ -62,6 +64,7 @@ class ReserveCRUDTest extends TestCase
         ]);
         $response = $this->actingAs($user)->post(route('reserve.store'), [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'date' => '2024-07-06',
@@ -73,6 +76,7 @@ class ReserveCRUDTest extends TestCase
         $this->assertCount(1, Reserve::all());
         $this->assertDatabaseHas('reserves', [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'start_time' => '2024-07-06 16:30:00',
@@ -95,6 +99,7 @@ class ReserveCRUDTest extends TestCase
         ]);
         $response = $this->actingAs($user)->post(route('reserve.store'), [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'date' => '2024-07-06',
@@ -108,6 +113,7 @@ class ReserveCRUDTest extends TestCase
         $this->assertCount(3, Reserve::all());
         $this->assertDatabaseHas('reserves', [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'start_time' => '2024-07-13 16:30:00',
@@ -130,6 +136,7 @@ class ReserveCRUDTest extends TestCase
         ]);
         $response = $this->actingAs($user)->post(route('reserve.store'), [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'date' => '2024-07-06',
@@ -165,6 +172,7 @@ class ReserveCRUDTest extends TestCase
         ]);
         $response = $this->actingAs($user)->post(route('reserve.store'), [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'date' => '2024-07-06',
@@ -190,6 +198,7 @@ class ReserveCRUDTest extends TestCase
         ]);
         $response = $this->actingAs($user)->post(route('reserve.store'), [
             'room_id' => $room->id,
+            'user_id' => $user->id,
             'title' => 'Meeting 1',
             'name' => $user->name,
             'date' => '2024-07-06',

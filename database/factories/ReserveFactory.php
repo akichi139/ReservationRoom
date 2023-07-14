@@ -30,6 +30,7 @@ class ReserveFactory extends Factory
         $usersIds = User::pluck('id')->toArray();
         return [
             "room_id" => $this->faker->randomElement($roomsIds),
+            "user_id" => $this->faker->randomElement($usersIds),
             "title" => $this->faker->title(),
             "name" => $this->faker->name(),
             "start_time" => $this->faker->dateTimeBetween('now', '+10 days')->format('Y-m-d H:i:s'),
