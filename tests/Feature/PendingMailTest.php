@@ -1,19 +1,21 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use App\Mail\ChangeStatusResponseMail;
-use App\Mail\ResponseMail;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Reserve;
 use App\Models\User;
 use App\Models\Room;
+use App\Mail\ResponseMail;
+use App\Mail\ChangeStatusResponseMail;
 
 class PendingMailTest extends TestCase
 {
     /**
-     * A basic unit test example.
+     * A basic feature test example.
      *
      * @return void
      */
