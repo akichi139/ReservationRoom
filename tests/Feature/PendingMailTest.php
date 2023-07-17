@@ -14,6 +14,7 @@ use App\Mail\ChangeStatusResponseMail;
 
 class PendingMailTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
